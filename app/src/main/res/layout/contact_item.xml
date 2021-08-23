@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/contact_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:padding="5dp"
+            android:text="ahmed"
+            android:textColor="@color/teal_700"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/contact_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:padding="5dp"
+            android:text="12345678"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/fav_star"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_weight="0.5"
+        android:background="@color/black"
+        app:srcCompat="@drawable/ic_baseline_star_24" />
+
+    <Button
+        android:id="@+id/send_x"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/purple_200"
+        android:text="Send"
+        android:drawableStart="@drawable/ic_baseline_send_24"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/white" />
+</LinearLayout>

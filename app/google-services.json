@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "771520067199",
+    "firebase_url": "https://sarves-37297-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "sarves-37297",
+    "storage_bucket": "sarves-37297.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771520067199:android:724bf3430114fe91ed314a",
+        "android_client_info": {
+          "package_name": "com.debbech.sarves"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771520067199-1ris92oovv8vccbs420lkg82live9j2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjbOt456R55RQmSmatsXgG890uTsbkU5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771520067199-1ris92oovv8vccbs420lkg82live9j2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
