@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -151,11 +152,8 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(MainActivity.this, SetNumberActivity.class);
             startActivity(i);
         }else{
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("/users/" + store2);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-            String currentDateandTime = sdf.format(new Date());
-            myRef.setValue(currentDateandTime);
+            Synchronizer.syncLastSeen(store2);
+            Synchronizer.syncContacts(this);
         }
     }
     @Override
@@ -168,11 +166,8 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(MainActivity.this, SetNumberActivity.class);
             startActivity(i);
         }else{
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("/users/" + store2);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-            String currentDateandTime = sdf.format(new Date());
-            myRef.setValue(currentDateandTime);
+            Synchronizer.syncLastSeen(store2);
+            Synchronizer.syncContacts(this);
         }
     }
     @Override

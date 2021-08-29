@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -107,7 +108,7 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 InputMethodManager inputMethodManager = (InputMethodManager)getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
-                listcont = loadContacts();
+                listcont = loadContacts(getActivity());
                 if(!names.getText().equals("")){
                     SharedPreferences sharedPref = getActivity().getSharedPreferences("keep", getActivity().MODE_PRIVATE);
                     String ss = sharedPref.getString("ussd", "-1");
@@ -137,9 +138,9 @@ public class SearchFragment extends Fragment {
             }
         });
     }
-    private ArrayList<Contact> loadContacts(){
+    public static ArrayList<Contact> loadContacts(FragmentActivity act){
         ArrayList<Contact> oo = new ArrayList<>();
-        ContentResolver cr = getActivity().getContentResolver();
+        ContentResolver cr = act.getContentResolver();
         Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
                 null, null, null, null);
 
