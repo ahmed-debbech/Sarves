@@ -31,7 +31,13 @@ public class Contact {
         if(obj instanceof Contact) {
             Contact c = (Contact) obj;
             String hh = c.getNumber().replaceAll("[^0-9]", "");
+            if(hh.length() > 8){
+                hh = hh.substring(3);
+            }
             String kk = this.number.replaceAll("[^0-9]", "");
+            if(kk.length() > 8){
+                kk = kk.substring(3);
+            }
             if(kk.compareTo(hh) == 0){
                 gg = true;
             }else{
