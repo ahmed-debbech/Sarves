@@ -3,18 +3,24 @@ package com.debbech.sarves;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
@@ -155,6 +161,35 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Synchronizer.syncLastSeen(store2);
             Synchronizer.syncContacts(this);
+        }
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            Log.d("ssarves", "less than oreo");
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "my channel")
+                    .setSmallIcon(R.drawable.btn_star_off)
+                    .setContentTitle("title")
+                    .setContentText("tiitlo")
+                    .setAutoCancel(true);
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+            // notificationId is a unique int for each notification that you must define
+            notificationManager.notify(1, builder.build());
+        }else{
+            Log.d("ssarves", "higher than oreo");
+            NotificationChannel ch = new NotificationChannel("my notif", "name", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager man = getSystemService(NotificationManager.class);
+            man.createNotificationChannel(ch);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "my notif")
+                    .setSmallIcon(R.drawable.btn_star_off)
+                    .setContentTitle("title")
+                    .setContentText("tiitlo")
+                    .setAutoCancel(true);
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+            // notificationId is a unique int for each notification that you must define
+            notificationManager.notify(1, builder.build());
         }
     }
     @Override
