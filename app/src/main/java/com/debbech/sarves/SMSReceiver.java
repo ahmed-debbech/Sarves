@@ -26,9 +26,12 @@ public class SMSReceiver extends BroadcastReceiver {
         //Log.d("go9", "onReceive: " + msgData);
         String cong = cursor.getString(2);
         cong = cong.replaceAll("[^0-9]", "");
+        if(cong.length() > 8){
+            cong = cong.substring(3);
+        }
 
         Log.d("go9", "onReceive: " + cursor.getString(2));
-
+        Toast.makeText(context, "Sarves: Last Sms is " + cong , Toast.LENGTH_LONG).show();
         SharedPreferences sharedPref1 = context.getSharedPreferences("sarves_contacts", context.MODE_PRIVATE);
         Map<String, String> list = (Map<String, String>) sharedPref1.getAll();
         ArrayList<String> listcont = new ArrayList<String>();
@@ -38,7 +41,7 @@ public class SMSReceiver extends BroadcastReceiver {
         if(!listcont.isEmpty()){
             for(String contact : listcont){
                 if(contact.equals(cong)){
-                    //Toast.makeText(context, "sms from " + cong , Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Sarves: your received SMS from " + cong , Toast.LENGTH_LONG).show();
                     Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
                     Ringtone r = RingtoneManager.getRingtone(context, notification);
                     r.play();
@@ -50,6 +53,9 @@ public class SMSReceiver extends BroadcastReceiver {
                     };
                     Timer timer = new Timer();
                     timer.schedule(task, 25000);
+                    Intent io = new Intent(context, CallPopUpActivity.class);
+                    io.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(io);
                 }
             }
         }

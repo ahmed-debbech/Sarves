@@ -24,9 +24,13 @@
         </activity>
         <activity android:name=".SetNumberActivity">
         </activity>
-        
-        <receiver android:name=".SMSReceiver">
-            <intent-filter>
+        <activity
+            android:name=".CallPopUpActivity">
+        </activity>
+        <receiver android:name=".SMSReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="2147483647">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
         </receiver>

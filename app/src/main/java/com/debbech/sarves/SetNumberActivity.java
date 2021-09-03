@@ -1,5 +1,6 @@
 package com.debbech.sarves;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,8 @@ public class SetNumberActivity extends AppCompatActivity {
 
     private TextView number;
     private Button submit;
+    private SetNumberActivity act;
+    private Intent i;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,8 @@ public class SetNumberActivity extends AppCompatActivity {
 
         number = findViewById(R.id.number_set);
         submit = findViewById(R.id.submit_set);
+        this.act= this;
+        i = new Intent(this, MainActivity.class);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +49,10 @@ public class SetNumberActivity extends AppCompatActivity {
                 myRef.setValue(currentDateandTime);
 
                 finish();
+                Intent i = new Intent(SetNumberActivity.this, MainActivity.class);
+                startActivity(i);
             }
         });
     }
+
 }

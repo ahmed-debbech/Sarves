@@ -151,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
         if(store2.equals("none")){
             Intent i = new Intent(MainActivity.this, SetNumberActivity.class);
             startActivity(i);
+            finish();
         }else{
             Synchronizer.syncLastSeen(store2);
             Synchronizer.syncContacts(this);
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         if(store2.equals("none")){
             Intent i = new Intent(MainActivity.this, SetNumberActivity.class);
             startActivity(i);
+            finish();
         }else{
             Synchronizer.syncLastSeen(store2);
             Synchronizer.syncContacts(this);
