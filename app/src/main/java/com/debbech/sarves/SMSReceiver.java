@@ -1,5 +1,8 @@
 package com.debbech.sarves;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +11,12 @@ import android.database.Cursor;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -30,7 +37,6 @@ public class SMSReceiver extends BroadcastReceiver {
             cong = cong.substring(3);
         }
 
-        Log.d("go9", "onReceive: " + cursor.getString(2));
         Toast.makeText(context, "Sarves: Last Sms is " + cong , Toast.LENGTH_LONG).show();
         SharedPreferences sharedPref1 = context.getSharedPreferences("sarves_contacts", context.MODE_PRIVATE);
         Map<String, String> list = (Map<String, String>) sharedPref1.getAll();
@@ -53,9 +59,42 @@ public class SMSReceiver extends BroadcastReceiver {
                     };
                     Timer timer = new Timer();
                     timer.schedule(task, 25000);
-                    Intent io = new Intent(context, CallPopUpActivity.class);
-                    io.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(io);
+
+                    Intent i = new Intent(context, StopActivity.class);
+                    PendingIntent pen = PendingIntent.getActivity(context, 100, i, PendingIntent.FLAG_CANCEL_CURRENT);
+
+                    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                        Log.d("ssarves", "less than oreo");
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "my channel")
+                                .setSmallIcon(R.drawable.btn_star_off)
+                                .setContentTitle(cong + " wants a call")
+                                .setContentIntent(pen)
+                                .setContentText(cong + " wants a call")
+                                .setAutoCancel(true);
+
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+
+                        // notificationId is a unique int for each notification that you must define
+                        notificationManager.notify(1, builder.build());
+                    }else{
+                        Log.d("ssarves", "higher than oreo");
+
+                        NotificationChannel ch = new NotificationChannel("my notif", "name", NotificationManager.IMPORTANCE_DEFAULT);
+                        NotificationManager man = context.getSystemService(NotificationManager.class);
+                        man.createNotificationChannel(ch);
+
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "my notif")
+                                .setSmallIcon(R.drawable.btn_star_off)
+                                .setContentTitle(cong + " wants a call")
+                                .setContentText(cong + " wants a call")
+                                .setContentIntent(pen)
+                                .setAutoCancel(true);
+
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+
+                        // notificationId is a unique int for each notification that you must define
+                        notificationManager.notify(1, builder.build());
+                    }
                 }
             }
         }
