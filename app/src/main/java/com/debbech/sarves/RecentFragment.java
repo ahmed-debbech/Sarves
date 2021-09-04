@@ -148,40 +148,47 @@ public class RecentFragment extends Fragment {
         int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
         sb.append("Call Log :");
         int i=0;
+        String holder = "";
         if(!reverse.isChecked()) {
-            while ((managedCursor.moveToNext()) && (i <= 19)) {
-                String phNumber = managedCursor.getString(number);
-                String callType = managedCursor.getString(type);
-                String callDate = managedCursor.getString(date);
-                Date callDayTime = new Date(Long.valueOf(callDate));
-                String callDuration = managedCursor.getString(duration);
-                Contact c;
-                String rr = contactExists(getActivity(), phNumber);
-                if (rr != "") {
-                    c = new Contact(rr + "", phNumber + "");
-                } else {
-                    c = new Contact(phNumber + "", phNumber + "");
+            while ((managedCursor.moveToNext()) && (i <= 29)) {
+                if(!holder.equals(managedCursor.getString(number))) {
+                    String phNumber = managedCursor.getString(number);
+                    String callType = managedCursor.getString(type);
+                    String callDate = managedCursor.getString(date);
+                    Date callDayTime = new Date(Long.valueOf(callDate));
+                    String callDuration = managedCursor.getString(duration);
+                    Contact c;
+                    String rr = contactExists(getActivity(), phNumber);
+                    if (rr != "") {
+                        c = new Contact(rr + "", phNumber + "");
+                    } else {
+                        c = new Contact(phNumber + "", phNumber + "");
+                    }
+                    cc.add(new Holder(c, callDate));
+                    i++;
+                    holder = phNumber;
                 }
-                cc.add(new Holder(c, callDate));
-                i++;
             }
         }else{
             managedCursor.moveToLast();
-            while ((managedCursor.moveToPrevious()) && (i <= 19)) {
-                String phNumber = managedCursor.getString(number);
-                String callType = managedCursor.getString(type);
-                String callDate = managedCursor.getString(date);
-                Date callDayTime = new Date(Long.valueOf(callDate));
-                String callDuration = managedCursor.getString(duration);
-                Contact c;
-                String rr = contactExists(getActivity(), phNumber);
-                if (rr != "") {
-                    c = new Contact(rr + "", phNumber + "");
-                } else {
-                    c = new Contact(phNumber + "", phNumber + "");
+            while ((managedCursor.moveToPrevious()) && (i <= 29)) {
+                if(!holder.equals(managedCursor.getString(number))) {
+                    String phNumber = managedCursor.getString(number);
+                    String callType = managedCursor.getString(type);
+                    String callDate = managedCursor.getString(date);
+                    Date callDayTime = new Date(Long.valueOf(callDate));
+                    String callDuration = managedCursor.getString(duration);
+                    Contact c;
+                    String rr = contactExists(getActivity(), phNumber);
+                    if (rr != "") {
+                        c = new Contact(rr + "", phNumber + "");
+                    } else {
+                        c = new Contact(phNumber + "", phNumber + "");
+                    }
+                    cc.add(new Holder(c, callDate));
+                    i++;
+                    holder = phNumber;
                 }
-                cc.add(new Holder(c, callDate));
-                i++;
             }
         }
         //managedCursor.close();

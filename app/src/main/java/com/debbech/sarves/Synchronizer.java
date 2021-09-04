@@ -37,7 +37,6 @@ public class Synchronizer {
                 SharedPreferences sharedPref1 = act.getSharedPreferences("sarves_contacts", act.MODE_PRIVATE);
                 Map<String, String> list = (Map<String, String>) sharedPref1.getAll();
                 ArrayList<String> listcont = new ArrayList<String>();
-                Log.d("goo0", "onDataChange: " + list.toString());
                 for(Map.Entry<String, String> entry : list.entrySet()){
                     listcont.add(new String(entry.getKey()));
                 }
@@ -46,7 +45,6 @@ public class Synchronizer {
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         if (contacts_list.contains(new Contact("0", snap.getKey()))) {
                             if(!listcont.contains(new Contact("0", snap.getKey()))) {
-                                Log.d("goo0", "data " + snap.getKey());
                                 editor = sharedPref1.edit();
                                 editor.putString(snap.getKey(), snap.getKey());
                                 editor.commit();
@@ -57,7 +55,6 @@ public class Synchronizer {
                     SharedPreferences.Editor editor = null;
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         if (contacts_list.contains(new Contact("0", snap.getKey()))) {
-                            Log.d("goo0", "data " + snap.getKey());
                             editor = sharedPref1.edit();
                             editor.putString(snap.getKey(), snap.getKey());
                             editor.commit();

@@ -37,7 +37,6 @@ public class SMSReceiver extends BroadcastReceiver {
             cong = cong.substring(3);
         }
 
-        Toast.makeText(context, "Sarves: Last Sms is " + cong , Toast.LENGTH_LONG).show();
         SharedPreferences sharedPref1 = context.getSharedPreferences("sarves_contacts", context.MODE_PRIVATE);
         Map<String, String> list = (Map<String, String>) sharedPref1.getAll();
         ArrayList<String> listcont = new ArrayList<String>();
@@ -47,6 +46,7 @@ public class SMSReceiver extends BroadcastReceiver {
         if(!listcont.isEmpty()){
             for(String contact : listcont){
                 if(contact.equals(cong)){
+
                     Toast.makeText(context, "Sarves: your received SMS from " + cong , Toast.LENGTH_LONG).show();
                     Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
                     Ringtone r = RingtoneManager.getRingtone(context, notification);
@@ -58,7 +58,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         }
                     };
                     Timer timer = new Timer();
-                    timer.schedule(task, 25000);
+                    timer.schedule(task, 20000);
 
                     Intent i = new Intent(context, StopActivity.class);
                     PendingIntent pen = PendingIntent.getActivity(context, 100, i, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -85,8 +85,8 @@ public class SMSReceiver extends BroadcastReceiver {
 
                         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "my notif")
                                 .setSmallIcon(R.drawable.btn_star_off)
-                                .setContentTitle(cong + " wants a call")
-                                .setContentText(cong + " wants a call")
+                                .setContentTitle("Someone sent a message")
+                                .setContentText(cong + " wants to talk to you")
                                 .setContentIntent(pen)
                                 .setAutoCancel(true);
 

@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,6 +118,49 @@ public class SearchFragment extends Fragment {
                     ArrayList<Contact> ll = new ArrayList<>();
                     for(Contact c : listcont){
                         if(c.getName().toLowerCase().startsWith(names.getText().toString().toLowerCase())){
+                            ll.add(c);
+                        }
+                    }
+                    if(ll.size() == 0){
+                        nores.setVisibility(View.VISIBLE);
+                    }else{
+                        nores.setVisibility(View.GONE);
+                    }
+                    adapter.setList(ll);
+                }else {
+                    if(listcont.size() == 0){
+                        nores.setVisibility(View.VISIBLE);
+                    }else{
+                        nores.setVisibility(View.GONE);
+                    }
+                    adapter.setList(listcont);
+                }
+                contacts.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+        });
+        names.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                contacts.setAdapter(null);
+                listcont = loadContacts(getActivity());
+                if(!s.toString().equals("")){
+                    SharedPreferences sharedPref = getActivity().getSharedPreferences("keep", getActivity().MODE_PRIVATE);
+                    String ss = sharedPref.getString("ussd", "-1");
+                    adapter.setUSSD(ss);
+                    ArrayList<Contact> ll = new ArrayList<>();
+                    for(Contact c : listcont){
+                        if(c.getName().toLowerCase().startsWith(s.toString().toLowerCase())){
                             ll.add(c);
                         }
                     }
