@@ -37,16 +37,21 @@ public class SetNumberActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String nu = number.getText().toString().replaceAll("[^0-9]", "");
+                if(nu.length() > 8){
+                    number.setError("Number should not pass 8 numbers");
+                    return;
+                }
                 SharedPreferences sharedPreferences = getSharedPreferences("number", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("num", number.getText().toString());
                 editor.commit();
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("/users/" + number.getText().toString() );
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-                String currentDateandTime = sdf.format(new Date());
-                myRef.setValue(currentDateandTime);
+                String nn = number.getText().toString().replaceAll("[^0-9]", "");
+                if(nn.length() > 8){
+                    nn = nn.substring(3);
+                }
+                Synchronizer.syncLastSeen(nn);
 
                 finish();
                 Intent i = new Intent(SetNumberActivity.this, MainActivity.class);

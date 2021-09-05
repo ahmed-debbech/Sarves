@@ -32,7 +32,7 @@ public class Synchronizer {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<Contact> contacts_list = SearchFragment.loadContacts(act);
+                ArrayList<Contact> contacts_list = Utils.loadContacts(act);
 
                 SharedPreferences sharedPref1 = act.getSharedPreferences("sarves_contacts", act.MODE_PRIVATE);
                 Map<String, String> list = (Map<String, String>) sharedPref1.getAll();

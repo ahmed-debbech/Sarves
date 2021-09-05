@@ -19,6 +19,7 @@
             android:layout_height="40dp"
             android:background="@drawable/rounded"
             android:ems="10"
+            android:padding="3dp"
             android:layout_weight="3"
             android:hint="Write Name"
             android:inputType="textPersonName"

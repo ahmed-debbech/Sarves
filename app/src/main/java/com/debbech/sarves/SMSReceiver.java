@@ -88,6 +88,7 @@ public class SMSReceiver extends BroadcastReceiver {
                                 .setContentTitle("Someone sent a message")
                                 .setContentText(cong + " wants to talk to you")
                                 .setContentIntent(pen)
+                                .setSilent(true)
                                 .setAutoCancel(true);
 
                         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);

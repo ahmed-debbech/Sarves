@@ -14,7 +14,7 @@
         android:background="@drawable/rounded"
         android:ems="10"
         android:hint="Set your phone number"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
